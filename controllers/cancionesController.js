@@ -5,7 +5,10 @@ const controller = {
     listarCanciones: async (req, res) => {
         try {
             const canciones = await Cancion.findAll();
-            res.status(200).json(canciones);
+            res.status(200).json({
+                canciones: canciones,
+                status: 200
+            });
         } catch (error) {
             res.status(500).json({ error: error.message });
         }
@@ -15,7 +18,7 @@ const controller = {
         try {
 
             const { titulo, duracion, generoId, albumId, artistaId } = req.body;
-    
+
             const nuevaCancion = await Cancion.create({
                 titulo,
                 duracion,
@@ -23,8 +26,11 @@ const controller = {
                 albumId,
                 artistaId
             });
-    
-            res.status(201).json(nuevaCancion);
+
+            res.status(201).json({
+                nuevacancion: nuevaCancion,
+                status: 201
+            });
         } catch (error) {
             res.status(500).json({ error: error.message });
         }
@@ -36,7 +42,10 @@ const controller = {
             const cancion = await Cancion.findByPk(id);
 
             if (cancion) {
-                res.status(200).json(cancion);
+                res.status(200).json({
+                    cancion: cancion,
+                    status: 200
+                });
             } else {
                 res.status(404).json({ error: 'Canción no encontrada' });
             }
@@ -47,15 +56,18 @@ const controller = {
 
     editarCancion: async (req, res) => {
         try {
-            const id = req.params.id; 
+            const id = req.params.id;
             const datosActualizados = req.body;
-    
+
             const [updateSuccess] = await Cancion.update(datosActualizados, {
                 where: { id: id }
             });
-    
-            if (updateSuccess>0) {
-                res.status(200).json({ message: 'Canción actualizada con éxito' });
+
+            if (updateSuccess > 0) {
+                res.status(200).json({
+                    message: 'Canción actualizada con éxito',
+                    status: 200
+                });
             } else {
                 res.status(404).json({ error: 'Canción no encontrada' });
             }
@@ -67,13 +79,16 @@ const controller = {
     eliminarCancion: async (req, res) => {
         try {
             const id = req.params.id;
-    
+
             const cancionEliminada = await Cancion.destroy({
                 where: { id: id }
             });
-    
+
             if (cancionEliminada) {
-                res.status(200).json({ message: 'Canción eliminada con éxito' });
+                res.status(200).json({
+                    message: 'Canción eliminada con éxito',
+                    status: 200
+                });
             } else {
                 res.status(404).json({ error: 'Canción no encontrada' });
             }

@@ -11,7 +11,9 @@ const controller = {
                     as: 'canciones'
                 }]
             });
-            res.status(200).json(generos);
+            res.status(200).json({
+                generos: generos,
+                status: 200});
         } catch (error) {
             res.status(500).json({ error: error.message });
         }
