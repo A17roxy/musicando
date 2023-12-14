@@ -1,6 +1,5 @@
 const sequelize = require('../config.js');
 const { Model, DataTypes } = require('sequelize');
-const Cancion = require('./canciones');
 
 class Genero extends Model {}
 
@@ -22,6 +21,6 @@ Genero.init({
     timestamps: false
 });
 
-Genero.hasMany(Cancion, { foreignKey: 'generoId', as: 'canciones' });
+
 
 module.exports = Genero;

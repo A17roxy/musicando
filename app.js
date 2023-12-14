@@ -4,6 +4,9 @@ const app = express();
 const port = 3000;
 
 const sequelize = require('./database/config');
+const initModels = require('./database/models/init-models');
+
+initModels(sequelize);
 
 const cancionesRoutes = require('./routes/cancionesRoutes');
 const generosRoutes = require('./routes/generosRoutes');
